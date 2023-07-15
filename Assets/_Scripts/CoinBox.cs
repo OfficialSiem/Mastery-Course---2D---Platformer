@@ -32,8 +32,8 @@ public class CoinBox : MonoBehaviour
 
         //If there are coins, and whatever entered it was a player, and the player is hitting the box from bellow-ish (lower corner hits count)
         if (remainingCoins > 0 &&
-            WasHitByPlayer(collision) &&
-            WasHitFromBottomSide(collision))
+            collision.WasHitByPlayer() &&
+            collision.WasHitFromBottomSide())
         {
 
             GameManager.Instance.AddCoin();
@@ -48,13 +48,5 @@ public class CoinBox : MonoBehaviour
 
     }
 
-    private static bool WasHitByPlayer(Collision2D collision)
-    {
-        return collision.collider.GetComponent<PlayerMovementController>() != null;
-    }
 
-    private static bool WasHitFromBottomSide(Collision2D collision)
-    {
-        return (collision.contacts[0].normal.y > 0.5);
-    }
 }
