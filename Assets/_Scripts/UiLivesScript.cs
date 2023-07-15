@@ -29,10 +29,10 @@ public class UiLivesScript : MonoBehaviour
     ///         And that script happens to also be referencing the audio source, so maybe it keeps that reference around too. 
     ///         Then when the scene reloads there's some conflict with the two audio sources, since there's still a reference left 
     ///         over from before. You would expect a scene unload to clear all that out though.."
-    ///    So you need to have an OnDisable method that deletes the references when, well, everything is Disabled
+    ///    So you need to have an OnDestroy method that deletes the references when, well, everything is Disabled/Destroyed
     ///         See, https://forum.unity.com/threads/missingreferenceexception-when-scene-is-reloaded.533658/ for more details Thanks #Tyc1Up
     /// </summary>
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameManager.Instance.OnLivesChanged -= HandleOnLiveChanged;
     }
