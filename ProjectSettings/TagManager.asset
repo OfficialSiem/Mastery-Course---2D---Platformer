@@ -41,3 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1561253745
+    locked: 0
+  - name: MiddleGround
+    uniqueID: 2501909701
+    locked: 0
+  - name: Forground
+    uniqueID: 3809777399
+    locked: 0
+  - name: Enemies
+    uniqueID: 3226414225
+    locked: 0
+  - name: Obsticles
+    uniqueID: 1408876799
+    locked: 0
+  - name: Collectables
+    uniqueID: 3189500027
+    locked: 0
+  - name: Player
+    uniqueID: 3941207855
+    locked: 0
