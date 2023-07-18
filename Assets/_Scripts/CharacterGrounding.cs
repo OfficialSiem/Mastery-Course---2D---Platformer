@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -18,10 +19,17 @@ public class CharacterGrounding : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask = 0;
 
+
+    private Transform groundedObject;
+
+    //Adding a question mark just means that the variable could be null 
+    //(which in most cases Vector3 can not be inittalized as null)
+    private Vector3? groundedObjectLastPosition;
+
+
     /*So only 
      * the CharacterGrounding Script can SET the varaible
      * but every script can now read the field because its public*/
-
     public bool IsGrounded { get; private set; }
 
     private void Update()
@@ -30,6 +38,29 @@ public class CharacterGrounding : MonoBehaviour
 
         if (IsGrounded == false)
             CheckFootForGrounding(rightFoot);
+
+        StickToMovingObjects();
+    }
+
+    private void StickToMovingObjects()
+    {
+        //Check if there's an object the player is standing on
+        if(groundedObject != null)
+        {
+            //If the position of the grounded object exists, and its not the same as the player
+            if(groundedObjectLastPosition.HasValue && 
+                groundedObjectLastPosition.Value != transform.position)
+            {
+                Vector3 delta = groundedObject.position - groundedObjectLastPosition.Value;
+                transform.position += delta;
+            }
+            groundedObjectLastPosition = groundedObject.position;
+        }
+        //if the player's not on an object, set the last grounded object last's position to null
+        else
+        {
+            groundedObjectLastPosition = null;
+        }
     }
 
     private void CheckFootForGrounding(Transform foot)
@@ -38,11 +69,12 @@ public class CharacterGrounding : MonoBehaviour
         Debug.DrawRay(foot.position, Vector3.down * maxDepth, Color.red);
         if (raycastHit.collider != null)
         {
+            groundedObject = raycastHit.collider.transform;
             IsGrounded = true;
         }
         else
         {
-
+            groundedObject = null;
             IsGrounded = false;
         }
     }
