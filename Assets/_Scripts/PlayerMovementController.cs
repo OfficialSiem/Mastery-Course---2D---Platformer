@@ -71,8 +71,12 @@ public class PlayerMovementController : MonoBehaviour, IMove
          * to change movement based on incremental values of frame-rates
          * This way, weather you use High-End systems or delpaidated hardware,
          * the movement progresses at the same, fraction of a frame-rate.
+         * 
+         * fixedDeltaTime is just the time between fixed updates, and technically
+         * calling Time.deltaTime in fixedUpdate is just an akward implementation of Time.fixedDeltaTime
+         * 
         */
-        transform.position += movement * Time.deltaTime * moveSpeed;
+        transform.position += movement * Time.fixedDeltaTime * moveSpeed;
 
     }
 }
