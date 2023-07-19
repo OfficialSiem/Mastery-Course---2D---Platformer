@@ -33,7 +33,7 @@ public class CoinBox : MonoBehaviour
         //If there are coins, and whatever entered it was a player, and the player is hitting the box from bellow-ish (lower corner hits count)
         if (remainingCoins > 0 &&
             collision.WasHitByPlayer() &&
-            collision.WasHitFromBottomSide())
+            collision.WasBottom())
         {
 
             GameManager.Instance.AddCoin();

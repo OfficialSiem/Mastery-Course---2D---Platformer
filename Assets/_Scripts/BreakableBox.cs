@@ -8,7 +8,7 @@ public class BreakableBox : MonoBehaviour
     {
         //Whatever hit it was a player, and the player is hitting the box from bellow-ish (lower corner hits count)
         if (collision.WasHitByPlayer() &&
-            collision.WasHitFromBottomSide())
+            collision.WasBottom())
         {
             Destroy(gameObject);
         }

@@ -9,6 +9,9 @@ public class Walker : MonoBehaviour
     [SerializeField]
     private float speed = 1f;
 
+    [SerializeField]
+    private GameObject spawnOnStompPrefab;
+
     private new Collider2D collider;
 
     private new Rigidbody2D rigidbody2D;
@@ -22,15 +25,34 @@ public class Walker : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.WasHitByPlayer())
+        { 
+            if (collision.WasTop())
+            {
+                HandleWalkerStomped();
+            }
+            else
+            {
+                GameManager.Instance.KillPlayer();
+            }
+        }
+    }
+
+    private void HandleWalkerStomped()
+    {
+        if( spawnOnStompPrefab != null )
+        {
+            Instantiate(spawnOnStompPrefab, transform.position, transform.rotation);
+        }
+        
+        Destroy(gameObject);
+    }
+
     private void FixedUpdate()
     {
         rigidbody2D.MovePosition(rigidbody2D.position + direction*speed*Time.fixedDeltaTime);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void LateUpdate()

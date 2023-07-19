@@ -20,8 +20,16 @@ public static class Collision2DExtensions
         return collision.collider.GetComponent<PlayerMovementController>() != null;
     }
 
-    public static bool WasHitFromBottomSide(this Collision2D collision)
+    // For collisions, assume Bottom and Left are positive, Top and Right are
+    // negative as the normals are relative to the direction of what collided
+    // (e.g. if something hit your head, the object was traveling downward, hence the normal.y would be pointing down!
+    public static bool WasBottom(this Collision2D collision)
     {
         return (collision.contacts[0].normal.y > 0.5);
+    }
+
+    public static bool WasTop(this Collision2D collision)
+    {
+        return (collision.contacts[0].normal.y < -0.5);
     }
 }
