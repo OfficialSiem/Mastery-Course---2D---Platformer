@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     //private characters should be lowercased, or sometimes you can use _coins to denote private variable using "_"
     private int coins;
 
+    //Which level we're on
+    private int currentLevelIndex;
+
     //This awake method will ensure only one instance of the GameManager is up, and because any other gameObject with GameManager will die
     //  The pattern of only keeping one total instance up and running is called a "Singleton" pattern!
     private void Awake()
@@ -38,6 +41,12 @@ public class GameManager : MonoBehaviour
             RestartGame();
         }
 
+    }
+
+    public void MoveToNextLevel()
+    {
+        currentLevelIndex++;
+        SceneManager.LoadScene(currentLevelIndex);
     }
 
 
