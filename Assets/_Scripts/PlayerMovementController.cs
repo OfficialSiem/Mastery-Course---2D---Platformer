@@ -22,6 +22,10 @@ public class PlayerMovementController : MonoBehaviour, IMove
     [SerializeField]
     private float jumpMagnitude = 400.0f;
 
+    //How far the player bounces on  an object
+    [SerializeField]
+    private float bounceMagnitude = 200.0f;
+
     /*We use "new" to overide 
      * the existing definition of rigidBody2D; there are old methods of Rigidbody2D that
      exist, adn Unity can call those existing methods (good idea if Unity misdocuments 
@@ -32,6 +36,7 @@ public class PlayerMovementController : MonoBehaviour, IMove
 
     //This way we can use the script CharacterGrounding and access its vairables to determine whether or not the character is grounded or mid-air!
     private CharacterGrounding characterGrounding;
+
 
     public float Speed { get; private set; }
 
@@ -82,7 +87,8 @@ public class PlayerMovementController : MonoBehaviour, IMove
 
     }
 
-
-
-
+    internal void Bounce()
+    {
+        rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, Vector2.up.y*bounceMagnitude);
+    }
 }
