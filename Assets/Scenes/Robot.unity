@@ -3941,6 +3941,7 @@ GameObject:
   - component: {fileID: 1653403643}
   - component: {fileID: 1653403642}
   - component: {fileID: 1653403644}
+  - component: {fileID: 1653403645}
   m_Layer: 0
   m_Name: Snail
   m_TagString: Untagged
@@ -4121,6 +4122,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+--- !u!114 &1653403645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653403638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9042f5e3646b0e945b148f99c4c3841f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1707048354
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,7 +4274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730552899}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2709293, y: 2.9591157, z: -0.0461259}
+  m_LocalPosition: {x: -10.3, y: 2.18, z: -0.0461259}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5336,11 +5349,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2835176091967780608, guid: 9e658d6875ac43d46a2e1a2af3d8958f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.817997
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 2835176091967780608, guid: 9e658d6875ac43d46a2e1a2af3d8958f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.1461208
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2835176091967780608, guid: 9e658d6875ac43d46a2e1a2af3d8958f, type: 3}
       propertyPath: m_LocalPosition.z
