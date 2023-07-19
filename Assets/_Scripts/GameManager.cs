@@ -43,12 +43,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void MoveToNextLevel()
-    {
-        currentLevelIndex++;
-        SceneManager.LoadScene(currentLevelIndex);
-    }
-
 
     //Litterally everything that happens when the player dies
     internal void KillPlayer()
@@ -89,17 +83,15 @@ public class GameManager : MonoBehaviour
         player.transform.position = checkpoint.transform.position;
     }
 
-    internal void AddCoin()
+    public void MoveToNextLevel()
     {
-        coins++;
-        if(OnCoinsChanged != null)
-        {
-            OnCoinsChanged(coins);
-        }
+        currentLevelIndex++;
+        SceneManager.LoadScene(currentLevelIndex);
     }
 
     private void RestartGame()
     {
+        currentLevelIndex = 0;
         Lives = 3;
         coins = 0;
 
@@ -112,5 +104,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-
+    internal void AddCoin()
+    {
+        coins++;
+        if (OnCoinsChanged != null)
+        {
+            OnCoinsChanged(coins);
+        }
+    }
 }
