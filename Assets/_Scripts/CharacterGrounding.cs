@@ -7,10 +7,9 @@ using UnityEngine;
 public class CharacterGrounding : MonoBehaviour
 {
     [SerializeField]
-    private Transform leftFoot = null;
+    private Transform[] positions = null;
 
-    [SerializeField]
-    private Transform rightFoot = null;
+
 
     //How far the raycast show look down
     [SerializeField]
@@ -34,10 +33,12 @@ public class CharacterGrounding : MonoBehaviour
 
     private void Update()
     {
-        CheckFootForGrounding(leftFoot);
-
-        if (IsGrounded == false)
-            CheckFootForGrounding(rightFoot);
+        foreach (var position in positions)
+        {
+            CheckFootForGrounding(position);
+            if (IsGrounded)
+                break;
+        }
 
         StickToMovingObjects();
     }
@@ -69,8 +70,18 @@ public class CharacterGrounding : MonoBehaviour
         Debug.DrawRay(foot.position, Vector3.down * maxDepth, Color.red);
         if (raycastHit.collider != null)
         {
+            //If we hit something that's not the same as the object we are currently on!
+            if(groundedObject != raycastHit.collider.transform)
+            {
+               //make the new grounded object;s position
+               // the latest position our foot can stay on
+                groundedObjectLastPosition = raycastHit.collider.transform.position;
+            }
+            //regardless of newness, whatever our ray hitts becomes the newest grounded object
+            //the player can interact with
             groundedObject = raycastHit.collider.transform;
             IsGrounded = true;
+
         }
         else
         {
