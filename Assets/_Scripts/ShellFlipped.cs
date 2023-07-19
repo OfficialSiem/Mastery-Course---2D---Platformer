@@ -37,10 +37,10 @@ public class ShellFlipped : MonoBehaviour
             {
                 LaunchShell(collision);
 
-                //Check if what we collided with is breakable, then destroy that object!
-                var breakable = collision.collider.GetComponent<BreakableBox>();
-                if (breakable != null)
-                    Destroy(breakable.gameObject);
+                //Check if what we collided with has takeShellHits, then destroy that object!
+                var takeShellHits = collision.collider.GetComponent<ITakeShellHits>();
+                if (takeShellHits != null)
+                    takeShellHits.HandleShellHit(this);
             }
                 
         }
