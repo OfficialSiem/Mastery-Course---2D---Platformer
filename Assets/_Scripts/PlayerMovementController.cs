@@ -22,6 +22,10 @@ public class PlayerMovementController : MonoBehaviour, IMove
     [SerializeField]
     private float jumpMagnitude = 400.0f;
 
+    //How far we can wall jump
+    [SerializeField]
+    private float wallJumpForce = 250.0f;
+
     //How far the player bounces on  an object
     [SerializeField]
     private float bounceMagnitude = 200.0f;
@@ -59,6 +63,14 @@ public class PlayerMovementController : MonoBehaviour, IMove
         if (characterGrounding.IsGrounded && (Input.GetButtonDown("Fire1")))
         {
             rigidbody2D.AddForce(Vector2.up * jumpMagnitude);
+
+            //If the player is grounded on something that isn't directly bellow them (most likely a wall)
+            if (characterGrounding.GroundedDirection != Vector2.down)
+            {
+                //then launch the character in the opposite direction of what's grounding them
+                //((i.e. do a wall jump!) 
+                rigidbody2D.AddForce(characterGrounding.GroundedDirection * -1f * wallJumpForce);
+            }
         }
     }
 

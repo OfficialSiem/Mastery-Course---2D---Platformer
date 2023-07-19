@@ -31,6 +31,8 @@ public class CharacterGrounding : MonoBehaviour
      * but every script can now read the field because its public*/
     public bool IsGrounded { get; private set; }
 
+    public Vector2 GroundedDirection { get; private set; }
+
     private void Update()
     {
         foreach (var position in positions)
@@ -66,8 +68,8 @@ public class CharacterGrounding : MonoBehaviour
 
     private void CheckFootForGrounding(Transform foot)
     {
-        var raycastHit = Physics2D.Raycast(foot.position, Vector2.down, maxDepth, layerMask);
-        Debug.DrawRay(foot.position, Vector3.down * maxDepth, Color.red);
+        var raycastHit = Physics2D.Raycast(foot.position, foot.forward, maxDepth, layerMask);
+        Debug.DrawRay(foot.position, foot.forward * maxDepth, Color.red);
         if (raycastHit.collider != null)
         {
             //If we hit something that's not the same as the object we are currently on!
@@ -81,6 +83,7 @@ public class CharacterGrounding : MonoBehaviour
             //the player can interact with
             groundedObject = raycastHit.collider.transform;
             IsGrounded = true;
+            GroundedDirection = foot.forward;
 
         }
         else
