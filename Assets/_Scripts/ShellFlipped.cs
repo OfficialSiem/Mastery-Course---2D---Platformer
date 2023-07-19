@@ -29,22 +29,44 @@ public class ShellFlipped : MonoBehaviour
     {
         if (collision.WasHitByPlayer())
         {
-            var playerMovementController = collision.collider.GetComponent<PlayerMovementController>();
-            if (direction.magnitude == 0)
+            HandlePlayerCollision(collision);
+        }
+        else
+        {
+            if(collision.WasSide())
             {
                 LaunchShell(collision);
+
+                //Check if what we collided with is breakable, then destroy that object!
+                var breakable = collision.collider.GetComponent<BreakableBox>();
+                if (breakable != null)
+                    Destroy(breakable.gameObject);
+            }
+                
+        }
+    }
+
+    private void HandlePlayerCollision(Collision2D collision)
+    {
+        var playerMovementController = collision.collider.GetComponent<PlayerMovementController>();
+        if (direction.magnitude == 0)
+        {
+            //launch the shell if its at rest
+            LaunchShell(collision);
+            
+            //and if the hit was from the top, let the player bounce on it!
+            if(collision.WasTop())
+                playerMovementController.Bounce();
+        }
+        else
+        {
+            //If you hit the thing on top, stop the shell
+            if (collision.WasTop())
+            {
+                direction = Vector2.zero;
                 playerMovementController.Bounce();
             }
-            else
-            {
-                //If you hit the thing on top, stop the shell
-                if (collision.WasTop())
-                {
-                    direction = Vector2.zero;
-                    playerMovementController.Bounce();
-                }
-            }
-        } 
+        }
     }
 
     private void LaunchShell(Collision2D collision)

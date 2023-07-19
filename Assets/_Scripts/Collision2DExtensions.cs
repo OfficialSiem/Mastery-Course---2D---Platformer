@@ -32,4 +32,11 @@ public static class Collision2DExtensions
     {
         return (collision.contacts[0].normal.y < -0.5);
     }
+
+    public static bool WasSide(this Collision2D collision)
+    {
+        return (collision.contacts[0].normal.x < -0.5) ||
+                    (collision.contacts[0].normal.x > 0.5);
+
+    }
 }
